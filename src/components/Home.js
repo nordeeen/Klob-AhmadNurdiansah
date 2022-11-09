@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Card from './Card';
+import Header from './Header';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getLoker } from 'store/klobSlicer';
@@ -15,12 +16,7 @@ const Home = () => {
   return (
     <>
       <section className="w-full h-auto bg-red-500">
-        <header className="w-full h-auto bg-blue-200 flex justify-between items-center py-4 px-6">
-          <h1 className="text-4xl text-red-600 font-semibold text-center">Klob</h1>
-          <a href="#/" className="text-blue-600 underline">
-            Buat Lowongan
-          </a>
-        </header>
+        <Header />
         <div className="w-full h-auto px-4 py-6 bg-white">
           <h2 className="text-2xl font-semibold mb-6">Lowongan Pekerjaan :</h2>
           <div className="flex justify-center items-center">
