@@ -5,8 +5,11 @@ const Form = () => {
   return (
     <>
       <Header />
-      <section className="flex flex-col justify-center items-center my-4">
+      <section className="flex flex-col justify-center items-center mb-4">
         <div className="w-auto h-auto mt-6">
+          <h1 className="text-2xl font-semibold text-black text-left flex justify-start mb-3">
+            Buat Lowongan :
+          </h1>
           <form>
             <div className="flex flex-col">
               <label className="text-sm font-normal text-left mb-2">Logo Perusahaan</label>
