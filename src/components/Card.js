@@ -33,7 +33,10 @@ const Card = (props) => {
           </a>
         </div>
         <div className="flex justify-center items-center">
-          <button className="bg-green-600 px-8 py-2 rounded-[10px] text-center text-white text-sm">
+          <button
+            className="bg-green-600 px-8 py-2 rounded-[10px] text-center text-white text-sm"
+            onClick={props.onClick}
+          >
             kirim lamaran
           </button>
         </div>

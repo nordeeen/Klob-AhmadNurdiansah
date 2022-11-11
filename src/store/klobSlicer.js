@@ -1,16 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import api from './api';
 
-const initialState = {
-  arrLoker: [],
-};
-
 export const getLoker = createAsyncThunk(
   '/fakeJob',
   async (params, { dispatch, rejectWithValue }) => {
     try {
       const response = await api.getLoker();
-      console.log(response, 'ini response');
       return response;
     } catch (err) {
       rejectWithValue(err);
@@ -18,6 +13,18 @@ export const getLoker = createAsyncThunk(
   },
 );
 
+const initialState = {
+  arrLoker: [],
+  corporateId: '',
+  detail: {},
+  logo: '',
+  namaPerusahaan: '',
+  namaLoker: '',
+  statusKaryawan: '',
+  kisaranGaji: '',
+  sampaiGaji: '',
+  tanggal: '',
+};
 const klobSlicer = createSlice({
   name: 'klobSlicer',
   initialState: {
@@ -30,12 +37,11 @@ const klobSlicer = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getLoker.fulfilled, (state, action) => {
-      console.log(action.payload, 'acion payload');
       state.arrLoker = action.payload;
     });
   },
 });
 
-const { setKlobSlicer } = klobSlicer.actions;
+export const { setKlobSlicer } = klobSlicer.actions;
 
 export default klobSlicer.reducer;

@@ -1,18 +1,35 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from './Card';
 import Header from './Header';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getLoker } from 'store/klobSlicer';
+import { getLoker, setKlobSlicer } from 'store/klobSlicer';
+import { data } from 'autoprefixer';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+  const navigate = useNavigate();
+  const [loader, setLoader] = useState(false);
   const { arrLoker } = useSelector((state) => state);
-
-  console.log(arrLoker, 'arrr comp');
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(getLoker());
-  }, [dispatch]);
+    if (!arrLoker.length) {
+      dispatch(getLoker());
+    }
+  }, [dispatch, arrLoker]);
+
+  const handleClick = (e) => {
+    const newArr = arrLoker.find((data) => data.corporateId === e);
+    dispatch(
+      setKlobSlicer({
+        key: 'detail',
+        value: newArr,
+      }),
+    );
+    navigate('/detail');
+  };
+
   return (
     <>
       <section className="w-full h-auto bg-red-500">
@@ -32,6 +49,7 @@ const Home = () => {
                     salaryFrom={item.salaryFrom}
                     salaryTo={item.salaryTo}
                     postDate={item.postedDate}
+                    onClick={handleClick.bind(null, item.corporateId)}
                   />
                 );
               })}

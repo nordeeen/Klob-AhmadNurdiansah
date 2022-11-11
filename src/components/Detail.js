@@ -1,7 +1,26 @@
 import React from 'react';
 import Header from './Header';
+import { useSelector } from 'react-redux';
+import moment from 'moment/moment';
 
 const Detail = () => {
+  const detail = useSelector((state) => state.detail);
+  console.log('ini detail loker', detail);
+  if (!Object.keys(detail).length) {
+    return <p>tidak ada data</p>;
+  }
+
+  const formatter = (value) => {
+    return new Intl.NumberFormat('en-ID', {
+      style: 'currency',
+      currency: 'IDR',
+    })
+      .format(value)
+      .toString();
+  };
+
+  // console.log('ini uang', formatter(`${detail.salaryFrom}`));
+
   return (
     <>
       <Header />
@@ -12,14 +31,14 @@ const Detail = () => {
         <div className="w-[600px] h-auto bg-white py-3 px-6 border-2 border-gray-400 rounded-md">
           <div className="flex justify-center items-center mb-6">
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Pertamina_Logo.svg/1280px-Pertamina_Logo.svg.png"
+              src={detail.corporateLogo}
               alt="logo-perusahaan"
               className="w-[100px] h-[60px] object-contain"
             />
           </div>
           <div>
             <h2 className="text-lg text-black font-semibold text-left mb-4">
-              Sinar Mas Agribusiness and Food
+              {detail.corporateName}
             </h2>
             <p className="text-base text-black font-semibold text-left my-3">Kewajiban</p>
             <p className="text-base text-black font-normal">
@@ -38,49 +57,20 @@ const Detail = () => {
               </span>
             </p>
 
-            <ul className="list-disc">
-              <li>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta illo ducimus harum
-                molestiae fuga quibusdam.
-              </li>
-              <li>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum natus accusamus
-                minima magnam esse quis!
-              </li>
-              <li>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Praesentium molestias
-                exercitationem blanditiis accusamus maxime cum!
-              </li>
-              <li>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque a minima numquam,
-                beatae nostrum culpa?
-              </li>
-              <li>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore facilis animi
-                quidem quo, doloremque autem.
-              </li>
-              <li>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum reiciendis accusamus
-                perferendis autem qui at?
-              </li>
-              <li>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni, repellat excepturi
-                officia porro minima hic.
-              </li>
-            </ul>
-            <h2>Staff Accounting</h2>
+            <ul className="list-disc">{detail.descriptions}</ul>
+            <h2>{detail.positionName}</h2>
             <p className="text-base text-black font-normal text-left">
               Status :{' '}
-              <span className="bg-gray-600 px-1 py-1 rounded-sm text-white">Karyawan Tetap</span>
+              <span className="bg-gray-600 px-1 py-1 rounded-sm text-white">{detail.status}</span>
             </p>
             <p className="text-base text-black font-normal text-left">
               Gaji :{' '}
               <span className="bg-gray-600 px-1 py-1 rounded-sm text-white">
-                IDR 1.200.000 - IDR 57.500.000
+                {formatter(`${detail.salaryFrom}`)} - {formatter(`${detail.salaryTo}`)}
               </span>
             </p>
             <div className="flex justify-end">
-              <p className="text-xs text-gray-600">3 tahun yang lalu</p>
+              <p className="text-xs text-gray-600">{moment([`${detail.postedDate}`]).fromNow()}</p>
             </div>
           </div>
           <button className="bg-green-400 w-[550px] py-2 font-semibold uppercase mt-3 rounded-sm text-sm">
