@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Card from './Card';
 import Header from './Header';
+import Loading from './Loading';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { getLoker, setKlobSlicer } from 'store/klobSlicer';
-import { data } from 'autoprefixer';
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const navigate = useNavigate();
-  const [loader, setLoader] = useState(false);
-  const { arrLoker } = useSelector((state) => state);
+  const { arrLoker, loader } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -37,6 +35,7 @@ const Home = () => {
         <div className="w-full h-auto px-4 py-6 bg-white">
           <h2 className="text-2xl font-semibold mb-6">Lowongan Pekerjaan :</h2>
           <div className="flex justify-center items-center">
+            {loader && <Loading />}
             <div className="grid grid-cols-4 gap-6">
               {/* Card */}
               {arrLoker.map((item, index) => {
